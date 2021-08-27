@@ -10,12 +10,12 @@ function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetch(url)
-      .then(res => res.json())
-      .then(eventData => {
-        setEventData(eventData)
-        setLoading(false)
+      .then((res) => res.json())
+      .then((eventData) => {
+        setEventData(eventData);
+        setLoading(false);
       })
-      .catch(() => console.log("Something Went Wrong! Try Again Later.."))
+      .catch(() => console.log("Something Went Wrong! Try Again Later..")); // eslint-disable-next-line
   }, [])
   return (
     <div className="App">
