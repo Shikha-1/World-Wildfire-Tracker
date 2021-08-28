@@ -4,7 +4,12 @@ import Marker from "./Marker";
 import InfoCard from './Card';
 
 const Map = ({ eventData, center, zoom }) => {
+  const [openDrawer, setOpenDrawer] = useState(true);
   const [locationInfo, setLocationInfo] = useState();
+
+  setTimeout(() => {
+    setOpenDrawer(false);
+  }, 5000);
 
   const markers = eventData.events.map((event) => {
     if (event.categories[0].id === 8) {
@@ -14,7 +19,10 @@ const Map = ({ eventData, center, zoom }) => {
           lat={event.geometries[0].coordinates[1]}
           lng={event.geometries[0].coordinates[0]}
           text="Fire Marker"
-          onClick={() => setLocationInfo({ id: event.id, title: event.title })}
+          onClick={() => {
+            setLocationInfo({ id: event.id, title: event.title })
+            setOpenDrawer(true)
+          }}
         />
       );
     }
@@ -32,7 +40,7 @@ const Map = ({ eventData, center, zoom }) => {
       >
         {markers}
       </GoogleMapReact>
-      {locationInfo && <InfoCard info={locationInfo}/>}
+      {locationInfo && openDrawer && <InfoCard info={locationInfo}/>}
     </Fragment>
   );
 }
@@ -42,7 +50,7 @@ Map.defaultProps = {
     lat: 37.09024,
     lng: -95.712891,
   },
-  zoom: 5,
+  zoom: 4,
 };
 
 export default Map;
